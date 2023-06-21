@@ -1,7 +1,4 @@
-//Fund
-//Withdraw
-
-//SPDX License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.18;
 
@@ -24,8 +21,27 @@ contract FundFundMe is Script {
             "FundMe",
             block.chainid
         );
+        vm.startBroadcast();
         fundFundMe(mostRecentlyDeployed);
+        vm.stopBroadcast();
     }
 }
 
-contract WithdrawFundMe is Script {}
+contract WithdrawFundMe is Script {
+    function WithdrawFundFundMe(address mostecentlyDeployed) public {
+        vm.startBroadcast();
+        FundMe(payable(mostecentlyDeployed)).withdraw();
+        console.log("Withdrawn FundMe");
+        vm.stopBroadcast();
+    }
+
+    function run() external {
+        address mostRecentlyDeployed = DevOpsTools.get_most_recent_deployment(
+            "FundMe",
+            block.chainid
+        );
+        vm.startBroadcast();
+        WithdrawFundFundMe(mostRecentlyDeployed);
+        vm.stopBroadcast();
+    }
+}
